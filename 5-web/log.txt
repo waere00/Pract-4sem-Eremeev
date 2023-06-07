@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Wed, 07 Jun 2023 14:15:21 GMT
+Content-length: 38
+Server: SelfMadeServer v0.0.1
+Content-type: text/html; charset = utf8
+Connection: close
+
+<!-- 1.html --> 
+<H1> First html </H1>
