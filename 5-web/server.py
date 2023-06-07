@@ -1,5 +1,5 @@
 import socket
-import datetime
+import time
 
 sock = socket.socket()
 try:
@@ -19,7 +19,7 @@ while True:
     msg = data.decode()
     print(msg)
 
-    nowdate = datetime.datetime.utcnow().strftime(r"%a, %d %b %Y %H:%M:%S GMT")
+    nowdate = time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
     print(nowdate)
 
     with open('1.html', 'r') as file:
@@ -28,13 +28,13 @@ while True:
     content_length = len(content)
 
     response = f"""HTTP/1.1 200 OK
-    Date: {nowdate}
-    Content-Length: {content_length}
-    Server: MyNewServer v1.0.0 Release
-    Content-Type: text/html; charset=utf-8
-    Connection: keep-alive
+Date: {nowdate}
+Content-Length: {content_length}
+Server: MyNewServer v1.0.0 Release
+Content-Type: text/html; charset=utf-8
+Connection: keep-alive
 
-    {content}"""
+{content}"""
 
     conn.send(response.encode())
     conn.close()
