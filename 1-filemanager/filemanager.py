@@ -1,5 +1,3 @@
-# file_manager.py
-
 import os
 import shutil
 from settings import WORKING_DIRECTORY
