@@ -1,6 +1,5 @@
 import socket
 import logging
-import sys
 
 def authenticate(username, password):
     with open('credentials.txt', 'r') as file:
@@ -11,19 +10,24 @@ def authenticate(username, password):
     return False
 
 def start_server(hostname, port):
-    sock = socket.socket()
-    sock.bind((hostname, port))
+    while True:
+        try:
+            sock = socket.socket()
+            sock.bind((hostname, port))
+            break
+        except OSError as e:
+            if e.errno == 98:  # Address already in use
+                print(f"Порт {port} уже занят. Попробуйте другой порт.")
+                port = int(input("Введите номер порта: "))
+            else:
+                raise
     sock.listen(0)
-    logging.info("Запуск сервера")
-    logging.info(f"Начало прослушивания порта {port}")
-    print("Сервер запущен")
+    logging.info(f"Сервер запущен на порте {port}")
+    print(f"Сервер запущен на порте {port}")
 
     while True:
         try:
             conn, addr = sock.accept()
-#
-# conn.settimeout(5)  # Установка времени ожидания соединения (5 секунд)
-
             logging.info(f"Подключение клиента: {addr}")
             print(f"Подключение клиента: {addr}")
 
